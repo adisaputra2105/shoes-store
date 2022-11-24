@@ -1,76 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.101.0">
-    <title>Signin Template · Bootstrap v5.2</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <title>Login</title>
+</head>
 
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+<body>
+    <!-- Login -->
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <form action="cek-login.php" method="POST" class="sign-in-form">
+                    <h2 class="title">Login</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" name="username_pelanggan"/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" name="password_pelanggan"/>
+                    </div>
+                    <input type="submit" value="Login" class="btn solid" name="login" />
+                    
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    
-    <!-- Custom styles for this template -->
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
+                </form>
 
-      body {
-        display: flex;
-        align-items: center;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-      }
+                <!-- End Login -->
 
-      .form-signin {
-        max-width: 400px;
-        padding: 10px;
-      }
+                <!-- Register -->
+                <form action="cek-register.php" method="POST" class="sign-up-form">
+                    <h2 class="title">Sign up</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Nama" name="nama_pelanggan"/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="text" placeholder="Username" name="username_pelanggan" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" name="password_pelanggan" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" placeholder="No.Telepon" name="tlp_pelanggan" />
+                    </div>
+                    <input type="submit" class="btn" value="Register" />
+                </form>
+            </div>
+        </div>
 
-      .form-signin .form-floating:focus-within {
-        z-index: 2;
-      }
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Belum Punya Akun</h3>
+                    <p>
+                        Silahkan Buat Akun Dengan Mengklik Tombol Di Bawah Lalu Isi Form Yang Tertera
+                    </p>
+                    <button class="btn transparent" id="sign-up-btn">
+                        Register
+                    </button>
+                </div>
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>Sudah Punya Akun ?</h3>
+                    <p>
+                        Jika Anda Sudah Memiliki Akun Silahkan Login Dengan Mengklik Tombol Di Bawah Ini
+                    </p>
+                    <button class="btn transparent" id="sign-in-btn">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Register -->
+    <script>
 
-      .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
+        const sign_in_btn = document.querySelector("#sign-in-btn");
+        const sign_up_btn = document.querySelector("#sign-up-btn");
+        const container = document.querySelector(".container");
 
-      .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-    </style>
-  </head>
-  <body class="text-center">
-    <main class="form-signin w-100 m-auto">
-        <form action="../admin/index.php" method="POST">
-          <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-          <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+        sign_up_btn.addEventListener("click", () => {
+            container.classList.add("sign-up-mode");
+        });
 
-          <div class="form-floating">
-            <input type="text" class="form-control" name="username" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-          </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-        </form>
-    </main>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        sign_in_btn.addEventListener("click", () => {
+            container.classList.remove("sign-up-mode");
+        });
+    </script>
+    <script src="app.js"></script>
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
 </html>

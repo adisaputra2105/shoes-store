@@ -1,17 +1,37 @@
-<?php
-session_start();
-include 'koneksi.php';
+<?php 
+    // jika tombol ditekan 
+    session_start();
+    include '../koneksi.php';
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$data = mysqli_query($koneksi, "SELECT * FROM admin WHERE username='$username' and password='$password'");
-$cek = mysqli_num_rows($data);
-if ($cek > 0) {
-    $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
-    $_SESSION['login'] = 1;
-    header("location:menu.php");
-} else {
+        $username = $_POST["username_pelanggan"];
+        $password = $_POST["password_pelanggan"];
 
-    header("location:index.php?pesan=gagal");
-}
+        // lakukan query cek akun 
+        $ambil = $koneksi->query("SELECT * FROM pelanggan WHERE username_pelanggan='$username' and password_pelanggan ='$password'");
+
+        // ngitung akun yang terambil 
+        $akunyangcocok = $ambil->num_rows;
+
+        // jk akun yang cocok 1 (Login)
+        if ($akunyangcocok == 1) {
+            $akun  = $ambil->fetch_array();
+            $_SESSION['id_pelanggan'] = $akun['id_pelanggan'];
+            $_SESSION["pelanggan"] = $akun;
+            $_SESSION['user'] = true;
+
+            echo "<script>alert('Anda berhasil Login');</script>";
+            echo "<script>location = '../index.php';</script>";
+        }else{
+            // anda gagal login 
+            echo "<script>alert('Anda gagal Login');</script>";
+            echo "<script>location = 'index.php';</script>";
+
+           
+            
+        }
+
+
+
+?>
+
+
