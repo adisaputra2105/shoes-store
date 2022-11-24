@@ -50,7 +50,7 @@
     <a class="nav-link" href="../pesanan/pesanan.php"
         aria-expanded="true" >
         <i class="bi bi-bag-check-fill"></i>
-        <span>Orders</span>
+        <span>Order</span>
     </a>
 
 </li>
