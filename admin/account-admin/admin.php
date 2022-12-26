@@ -6,25 +6,14 @@
 
     <body id="page-top" style="font-family: 'Poppins';">
 
-        <!-- Page Wrapper -->
         <div id="wrapper">
-
             <?php include '../navbar.php'; ?>
-
-            <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
-
-                <!-- Main Content -->
                 <div id="content">
-
                     <?php include '../profile.php'; ?>
-                    <!-- End of Topbar -->
-
-                    <!-- Begin Page Content -->
                     <div class="container-fluid">
 
-
-                        <!-- DataTales Example -->
+                        <!-- Tabel Data Akun Admin -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex justify-content-between">
                                 <div class="col-md-7 ms-auto">
@@ -61,7 +50,7 @@
                                                         <a button class="btn btn-danger mx-1 text-white" data-bs-toggle="modal" data-bs-target="#bhapus<?= $no ?>"><i class="bi bi-trash"></i></a>
                                                     </td>
                                                 </tr>
-
+                                                <!-- Akhir Tabel Data Akun Admin -->
 
 
                                                 <!-- Modal Edit -->
@@ -178,21 +167,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- /.container-fluid -->
-
                 </div>
-                <!-- End of Main Content -->
-
             </div>
-            <!-- End of Content Wrapper -->
-
         </div>
-        <!-- End of Page Wrapper -->
-
         <?php include '../footer.php'; ?>
-
     </body>
-
     </html>

@@ -26,10 +26,7 @@
                         <input type="password" placeholder="Password" name="password_pelanggan"/>
                     </div>
                     <input type="submit" value="Login" class="btn solid" name="login" />
-                    
-
                 </form>
-
                 <!-- End Login -->
 
                 <!-- Register -->
@@ -41,6 +38,10 @@
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" name="email_pelanggan"/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user-check"></i>
                         <input type="text" placeholder="Username" name="username_pelanggan" />
                     </div>
                     <div class="input-field">

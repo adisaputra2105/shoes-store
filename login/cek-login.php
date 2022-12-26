@@ -16,6 +16,8 @@
         if ($akunyangcocok == 1) {
             $akun  = $ambil->fetch_array();
             $_SESSION['id_pelanggan'] = $akun['id_pelanggan'];
+            $_SESSION['nama_pelanggan'] = $akun['nama_pelanggan'];
+            $_SESSION['tlp_pelanggan'] = $akun['tlp_pelanggan'];
             $_SESSION["pelanggan"] = $akun;
             $_SESSION['user'] = true;
 

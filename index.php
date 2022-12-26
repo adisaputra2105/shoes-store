@@ -1,26 +1,26 @@
 <?php
 session_start();
 include 'koneksi.php';
-?>
 
-<!-- Query Tampil Produk -->
-<?php
+// Awal Query Detail Pesanan
 if (isset($_SESSION['id_pelanggan'])) {
   $id = $_SESSION['id_pelanggan'];
-  $tampil = mysqli_query($koneksi, "SELECT * FROM keranjang JOIN pelanggan ON pelanggan.id_pelanggan = keranjang.id_pelanggan WHERE pelanggan.id_pelanggan = $id");
+  $tampil = mysqli_query($koneksi, "SELECT * FROM keranjang JOIN pelanggan ON pelanggan.id_pelanggan = keranjang.id_pelanggan WHERE pelanggan.id_pelanggan = $id ");
   $row_count = mysqli_num_rows($tampil);
 }
+// Akhir Query Detail Pesanan
 
-$produks = mysqli_query($koneksi, "SELECT * FROM produk ");
+// Awal Query Nama Produk
+$names = mysqli_query($koneksi, "SELECT * FROM produk");
+$ambil = mysqli_fetch_array($names);
+// Akhir Query Nama Produk
 
 ?>
-<!-- Akhir Query Tampil Produk -->
-
 
 <!DOCTYPE html>
 <html>
 
-<!-- Header -->
+<!-- Awal Header -->
 
 <head>
   <!-- Basic -->
@@ -56,7 +56,6 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
   <!-- range slider -->
 
-
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
 
@@ -65,42 +64,49 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-
-
 </head>
-
 <!-- Akhir Header -->
 
 
 <body style="font-family: 'Poppins', sans-serif;">
   <div class="hero_area">
-    <!-- Awal Navbar -->
     <header class="header_section">
+
+      <!-- Awal Navbar Atas-->
       <div class="header_top" style="background-color: #0F3460;">
         <div class="container-fluid">
           <div class="top_nav_container">
             <div class="contact_nav">
-              <marquee behavior="slide"  direction="right"> <!--scrolldelay="1000" -->
-              <a href="https://wa.me/6282112594075/">
-                <i class="bi bi-whatsapp" style="color: #FF5B00;" aria-hidden="true"></i>
-                <span class="text-5" style2="font-size: 13px;">
-                  WhatsApp : +6282112594075
-                </span>
-              </a>
-              <a href="">
-                <i class="bi bi-envelope" style="color: #FF5B00;" aria-hidden="true"></i>
-                <span class="text-5" style="font-size: 13px;">
-                  Email : bisakenapa@gmail.com
-                </span>
-              </a>
+              <marquee behavior="slide" direction="right">
+                <!--scrolldelay="1000" -->
+                <a href="https://wa.me/6282112594075/">
+                  <i class="bi bi-whatsapp" style="color: #FF5B00;" aria-hidden="true"></i>
+                  <span class="text-5" style2="font-size: 13px;">
+                    WhatsApp : +6282112594075
+                  </span>
+                </a>
+                <a href="mailto:bisakenapa135@gmail.com">
+                  <i class="bi bi-envelope" style="color: #FF5B00;" aria-hidden="true"></i>
+                  <span class="text-5" style="font-size: 13px;">
+                    Email : bisakenapa@gmail.com
+                  </span>
+                </a>
               </marquee>
             </div>
-            <from class="search_form">
-              <input type="text" class="form-control" placeholder="Search Here...">
-              <button class="" type="submit" style="background-color: #FFB72B;">
-                <i class="bi bi-search" aria-hidden="true" style="color: #FF5B00;"></i>
-              </button>
-            </from>
+            <form method="POST" enctype="multipart/form-data">
+              <div class="d-flex">
+                <div class="col-md-8">
+                  <input type="search" name="search" class="form-control" placeholder="Search Here...">
+                </div>
+                <div class="col-md-3">
+                  <button name="cari" class="btn rounded" type="submit" style="background-color: #FFB72B; margin-left:-5px;">
+                    <i class="bi bi-search" aria-hidden="true" style="color: #FF5B00 "></i>
+                  </button>
+                </div>
+              </div>
+
+
+            </form>
 
             <?php if (isset($_SESSION['user'])) { ?>
               <div class="user_option_box">
@@ -142,16 +148,76 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
       </div>
   </div>
+  <!-- Akhir Navbar Atas -->
+
+  <!-- Awal Navbar Bawah -->
   <div class="header_bottom" style="background-color: #FF5B00;">
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="index.php">
           <img src="assets/logo.png" width="60px" class="ml-5">
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class=""> </span>
         </button>
+
+        <div class="d-flex ms-4 me-1">
+          <!-- <marquee direction="down" height="30px" scrolldelay="900">
+            <?php
+            $names = mysqli_query($koneksi, "SELECT * FROM produk ");
+            foreach ($names as $name) { ?>
+
+              <h6 class="font-weight-bold mb-2 me-1 text-white" style="font-size: 18px;">
+                <?= $name['nama_produk']; ?>
+              </h6>
+
+            <?php } ?>
+          </marquee>
+
+          <div class="col-md-1 me-2 rounded-4">
+            <div style="background-color: #0F3460; font-size: 15px;" id="hours" class="value py-2 fw-bold rounded-5 text-center text-white">00</div>
+          </div>
+
+          <div class="col-md-1 me-2 rounded-4">
+            <div style="background-color: #0F3460; font-size: 15px;" id="minutes" class="value py-2 fw-bold rounded-5 text-center text-white">00</div>
+          </div>
+
+          <div class="col-md-1 me-2 rounded-4">
+            <div style="background-color: #0F3460; font-size: 15px;" id="seconds" class="value py-2 fw-bold rounded-5 text-center text-white">00</div>
+          </div> -->
+
+          <!--Awal Script Countdown -->
+          <!-- <script>
+            let akhir = new Date(new Date().getFullYear() + 1, 0, 1);
+
+            let $hours = document.getElementById('hours');
+            let $minutes = document.getElementById('minutes');
+            let $seconds = document.getElementById('seconds');
+
+            setInterval(function() {
+              var now = new Date();
+              var timeleft = (akhir - now) / 1000;
+              updateclock(timeleft);
+            }, 1000);
+
+            function updateclock(remainingTime) {
+              let hours = Math.floor(remainingTime / 3600) % 24;
+              remainingTime -= hours * 3600;
+
+              let minutes = Math.floor(remainingTime / 60) % 60;
+              remainingTime -= minutes * 60;
+
+              let seconds = Math.floor(remainingTime % 60);
+
+
+              $hours.innerHTML = Number(hours);
+              $minutes.innerHTML = Number(minutes);
+              $seconds.innerHTML = Number(seconds);
+            }
+          </script> -->
+          <!-- Akhir Script Coundown -->
+        </div>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav fw-bold">
@@ -174,9 +240,12 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
       </nav>
     </div>
   </div>
+  <!-- Akhir Navbar Bawah -->
   </header>
-  <!-- end header section -->
-  <!-- slider section -->
+
+
+
+  <!-- Awal Tentang Kami -->
   <div id="carouselExampleControls" class="carousel slide shadow-lg mb-0" data-bs-ride="carousel">
     <div class="carousel-inner align-content-center align-items-center">
       <div style="background: url(assets/slider1.jpg); background-size:cover; height:600px;  box-shadow: inset 0 0 0 600px rgba(0, 0, 0, 0.6); " class="carousel-item active p-5 text-white align-items-center" data-interval="500">
@@ -234,11 +303,11 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  <!-- Akhir Navbar -->
   </div>
+  <!-- Akhir Tentang Kami -->
 
 
-  <!-- Awal Slider -->
+  <!-- Awal Tampilan Produk -->
   <section class="product_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
@@ -248,8 +317,27 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
       </div>
       <div class="row">
 
-        <?php foreach ($produks as $produk) { ?>
-          <div class="col-md-3 mt-2">
+        <?php
+
+        // Awal Query Search Dan Nampilin Produk
+        if (isset($_POST['cari'])) {
+          $cari = $_POST['search'];
+          $produks = mysqli_query($koneksi, "SELECT * FROM produk WHERE nama_produk LIKE '%$cari%' ");
+        } else {
+          $produks = mysqli_query($koneksi, "SELECT * FROM produk LIMIT 8");
+        }
+
+
+        // Akhir Query Search Dan Nampilin Produk
+
+        foreach ($produks as $produk) {
+          $harga = $produk['harga_produk'];
+          $diskon = $produk['diskon_produk'];
+          $hargadiskon = $diskon*$harga/100;
+          $total = $harga - $hargadiskon;
+
+          ?>
+          <div class="col-md-3 mt-4">
             <div class="card p-0">
               <div class="card-body">
                 <div class="card-img-actions">
@@ -268,8 +356,14 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
 
                 </div>
+                <?php 
+                 if ($diskon == 0 ) { ?>
+                  <h5 class="mb-2 font-weight-bold" style="color: #001D6E;">Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></h5>
+               <?php  } else { ?>
+                 <h5 class="mb-2 font-weight-bold" style="color: #001D6E;"><s>Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></s><br>Rp.<?= number_format($total,0, ".",".")?></h5>
+             <?php  }  ?>
 
-                <h5 class="mb-2 font-weight-bold" style="color: #001D6E;">Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></h5>
+                
 
 
 
@@ -280,6 +374,12 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
         <?php } ?>
       </div>
+    </div>
+
+    <div class="mt-5 d-flex justify-content-center align-content-center">
+      <a href="produk/produk.php" class="text-white px-5 py-3 rounded-2 shadow" style="background-color: #0F3460;">
+        View All Produk
+      </a>
     </div>
   </section>
 
@@ -313,11 +413,10 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
     </div>
   </section>
+  <!-- Akhir Tampilan Produk -->
 
-  <!-- Akhir About -->
 
-  <!-- Awal keunggulan -->
-
+  <!-- Awal keunggulan Kami -->
   <section class="why_us_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center mb-5">
@@ -329,7 +428,7 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
         <div class="col-md-4 justify-content-center">
           <div class="card P-3 py-3 px-3 mb-2 justify-content-center align-items-center shadow">
-            <img src="assets/keunggulan1.png" class="card-img-top w-25  justify-content-center" alt="...">
+            <img src="assets/pilihan.png" class="card-img-top w-25  justify-content-center" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center">Banyak Pilihan</h5>
               <p class="card-text text-center">Toko Shoes Store memiliki banyak varian sepatu </p>
@@ -339,38 +438,68 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
 
         <div class="col-md-4 justify-content-center">
           <div class="card P-3 py-3 px-3 mb-2 justify-content-center align-items-center shadow">
-            <img src="assets/keunggulan2.png" class="card-img-top w-25  justify-content-center" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center">Berkualitas</h5>
-              <p class="card-text text-center">Sepatu yang kami jual memiliki kualitas tinggi</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 justify-content-center">
-          <div class="card P-3 py-3 px-3 mb-2 justify-content-center align-items-center shadow">
-            <img src="assets/keunggulan3.png" class="card-img-top w-25  justify-content-center" alt="...">
+            <img src="assets/harga.png" class="card-img-top w-25  justify-content-center" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center">Harga Terjangkau</h5>
               <p class="card-text text-center">Harga yang terjangkau dan ramah di kalangan manapun</p>
             </div>
           </div>
         </div>
+
+        <div class="col-md-4 justify-content-center">
+          <div class="card P-3 py-3 px-3 mb-2 justify-content-center align-items-center shadow">
+            <img src="assets/kualitas.png" class="card-img-top w-25  justify-content-center" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Berkualitas</h5>
+              <p class="card-text text-center">Sepatu yang kami jual memiliki kualitas tinggi</p>
+            </div>
+          </div>
+        </div>
       </div>
   </section>
+  <!-- Akhir Keunggulan Kami -->
 
-  <!-- Akhir Keunggulan -->
+
+  <!-- Awal Riview Video -->
+  <section class="why_us_section layout_padding" style="background-color: #0F3460;">
+    <div class="container">
+      <div class="heading_container heading_center mb-5">
+        <h2 class="text-white">
+          Riview
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <center>
+            <video class="me-4" src="assets/riview1.mp4" controls width="400"></video>
+            <video class="me-4" src="assets/riview2.mp4" controls width="400"></video>
+            <video class="me-4" src="assets/riview3.mp4" controls width="400"></video>
+          </center>
+        </div>
+
+        <!-- <div class="col-md-12 mt-4">
+          <center>
+            <video class="me-4" src="assets/riview4.mp4" controls width="400"></video>
+            <video class="me-4" src="assets/riview5.mp4" controls width="400"></video>
+            <video class="me-4" src="assets/riview6.mp4" controls width="400"></video>
+          </center>
+        </div> -->
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Akhir Riview Video -->
 
 
   <!-- Awal Testimoni -->
-
-  <!-- <section class=" my-5 p-3 bg-light">
+  <section class=" my-5 p-3 py-5">
     <div class="container rounded-5">
       <div class="text-center mt-4">
         <h2 class="fw-bolder">Testimoni</h2>
         <p class="lead fw-normal text-muted mb-5">Apa Yang Dikatakan Pelanggan ?</p>
       </div>
-      <div id="carouselExampleControls" class="carousel slide shadow-lg mb-0" data-bs-ride="carousel">
+      <div id="carouselExampleControlsTesti" class="carousel slide shadow-lg mb-0" data-bs-ride="carousel">
         <div class="carousel-inner rounded-4" style="background-color:#0F3460;">
           <div class="carousel-item active rounded p-5 text-white" data-interval="2000" style="background-color: #0F3460;">
             <center>
@@ -394,26 +523,25 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
             </center>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsTesti" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsTesti" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
     </div>
-  </section> -->
-
+  </section>
   <!-- Akhir Testimoni -->
 
-  <!-- Footer -->
+
+  <!-- Awal Footer -->
   <section class="info_section " style="background-color: #0F3460;">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3">
+      <div class="row px-5">
+        <div class="col-md-4">
           <div class="info_contact">
             <h5>
               <a href="" class="navbar-brand">
@@ -436,7 +564,7 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
             </p>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="info_info">
             <h5>
               Shoes.Store
@@ -446,43 +574,20 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
             </p>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="info_links">
-            <h5>
-              Navigasi
-            </h5>
-            <ul>
-              <li>
-                <a href="index.html">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="about/about.php">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="produk/produk.php">
-                  Products
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3">
+
+        <div class="col-md-3 ms-3">
           <div class="info_form ">
             <h5>
               Social Media
             </h5>
             <div class="social_box">
-              <a href="">
+              <a href="https://www.facebook.com/profile.php?id=100088386672431">
                 <i class="bi bi-facebook" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.instagram.com/shoesstore4458/">
                 <i class="bi bi-instagram" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.youtube.com/channel/UCCrDLupHd52tQrbRQQEEUfA">
                 <i class="bi bi-youtube" aria-hidden="true"></i>
               </a>
             </div>
@@ -499,9 +604,9 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
       </p>
     </div>
   </footer>
-  <!-- End Footer -->
+  <!-- Akhir Footer -->
 
-  <!-- Modal Logout -->
+  <!-- Awal Modal Logout -->
   <div class="modal fade" id="logout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-center">
@@ -532,8 +637,11 @@ $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
   <script src="js/bootstrap.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+
   <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script src="assets/js/main.js"></script>
 
 

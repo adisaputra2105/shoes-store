@@ -1,5 +1,6 @@
 <?php
 
+// Fungsi Hapus
 require '../../koneksi.php';
 if (isset($_POST['bhapus'])) {
     $id = $_POST['id_transaksi'];
@@ -15,6 +16,7 @@ if (isset($_POST['bhapus'])) {
     }
 }
 
+// Fungsi Accept
 if (isset($_POST['accept'])) {
     $id = $_POST['id_transaksi'];
 
@@ -27,6 +29,7 @@ if (isset($_POST['accept'])) {
     echo '</script>';
 }
 
+// Fungi Reject
 if (isset($_POST['reject'])) {
     $id = $_POST['id_transaksi'];
 
@@ -39,6 +42,7 @@ if (isset($_POST['reject'])) {
     echo '</script>';
 }
 
+// Fungsi Done
 if (isset($_POST['done'])) {
     $id = $_POST['id_transaksi'];
 
@@ -49,4 +53,22 @@ if (isset($_POST['done'])) {
     echo 'alert("Pesanan Sudah Selesai");';
     echo 'window.location.href = "pesanan.php"';
     echo '</script>';
+}
+
+// Fungsi Pesanan Di Terima
+if (isset($_POST['diterima'])) {
+    $id = $_POST['id_transaksi'];
+
+    $result = $koneksi->query("UPDATE transaksi SET status = 'diterima' WHERE id_transaksi = '$id'");
+    if ($result == true):
+    echo '<script type = "text/javascript">';
+    echo 'alert("Pesanan Anda Sudah Di Terima");';
+    echo 'window.location.href = "../../order/order.php"';
+    echo '</script>';
+    else:
+        echo '<script type = "text/javascript">';
+    echo 'alert("Pesanan Anda Gagal Di Terima");';
+    echo 'window.location.href = "../../order/order.php"';
+    echo '</script>';
+    endif;
 }

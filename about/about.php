@@ -27,7 +27,6 @@
                 <img src="../assets/logo.png" width="270px">
             </div>
         </div>
-
     </div>
 
     <?php include '../layout/footer.php'; ?>

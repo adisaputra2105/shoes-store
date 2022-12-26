@@ -20,7 +20,7 @@ require '../../koneksi.php';
     // Fungsi Edit
     if(isset($_POST['bedit'])){
 
-        $update = mysqli_query($koneksi, "UPDATE pelanggan set nama_pelanggan='$_POST[nama_pelanggan]', username_pelanggan='$_POST[username_pelanggan]', password_pelanggan='$_POST[password_pelanggan]',tlp_pelanggan='$_POST[tlp_pelanggan]' WHERE id_pelanggan='$_POST[id_pelanggan]'");
+        $update = mysqli_query($koneksi, "UPDATE pelanggan set nama_pelanggan='$_POST[nama_pelanggan]',email_pelanggan='$_POST[email_pelanggan]', username_pelanggan='$_POST[username_pelanggan]', password_pelanggan='$_POST[password_pelanggan]',tlp_pelanggan='$_POST[tlp_pelanggan]' WHERE id_pelanggan='$_POST[id_pelanggan]'");
 
     
         if ($update) {
@@ -36,7 +36,7 @@ require '../../koneksi.php';
     // Fungsi Tambah Akun
     if(isset($_POST['btambah'])){
 
-        $create = mysqli_query($koneksi, "INSERT INTO pelanggan VALUES (NULL, '$_POST[nama_pelanggan]','$_POST[username_pelanggan]', '$_POST[password_pelanggan]', '$_POST[tlp_pelanggan]')");
+        $create = mysqli_query($koneksi, "INSERT INTO `pelanggan`(`id_pelanggan`, `nama_pelanggan`, `email_pelanggan`, `username_pelanggan`, `password_pelanggan`, `tlp_pelanggan`, `foto_profile`) VALUES ('NULL','$_POST[nama_pelanggan]','$_POST[email_pelanggan]','$_POST[username_pelanggan]','$_POST[password_pelanggan]','$_POST[tlp_pelanggan]','')");
 
         $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan";
 

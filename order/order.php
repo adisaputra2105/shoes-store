@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include '../layout/header.php'; ?>
-
+<?php
+include '../layout/header.php';
+?>
 
 <body>
     <?php include '../layout/navbar.php'; ?>
+
     <?php
+    // Awal Query Nampilin Orderan
     $id_plg = $_SESSION['id_pelanggan'];
     $orders = mysqli_query($koneksi, "SELECT * FROM transaksi JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan  WHERE transaksi.id_pelanggan  = '$id_plg'");
+    // Akhir Query Nampilin Orderan
     ?>
 
 
@@ -25,7 +29,6 @@
 
     <div class=" min-vh-100 container mt-5 mb-5 d-flex flex-column">
         <div class="row gx-5 align-content-center">
-            <!-- Pricing card free-->
             <?php
             foreach ($orders as $order) { ?>
                 <div class="col-md-3 mt-2 mb-2 ">
@@ -38,9 +41,7 @@
                             <h6 class=" text-center fw-bold text-dark "><?= $order['total_pembayaran'] ?></h6>
                             <h6 class=" text-center fw-bold text-dark ">Tanggal Pemesanan :</h6>
                             <h6 class=" text-center fw-bold text-dark "><?= $order['waktu'] ?></h6>
-
                         </div>
-
                         <div class="card-button bg-primary ">
                             <a button data-bs-toggle="modal" data-bs-target="#bdetail<?= $order['id_transaksi'] ?>">
                                 <div class="d-flex justify-content-between align-items-center ">
@@ -49,17 +50,11 @@
                                 </div>
                             </a>
                         </div>
-
-
-
                     </div>
                 </div>
 
 
-
-
-
-                <!-- Modal -->
+                <!-- Modal Tampilan Detail Pemesanan -->
                 <div class="modal fade " id="bdetail<?= $order['id_transaksi'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="container">
@@ -68,7 +63,6 @@
                                     <h5 class="modal-title" id="exampleModalLabel">Detail Pesanan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-
                                 <div class="container col-md-12 mb-4">
                                     <div class="p-1 row">
                                         <div class="mb-3 col-12">
@@ -95,17 +89,31 @@
                                             <label for="" style="font-size:15px;" class="mb-1">No.Telepon</label>
                                             <input type="input" class="form-control" readonly value="<?= $order['tlp_pelanggan'] ?>">
                                         </div>
-                                        <label for="" style="font-size:15px;" class="mt-3 text-center">Status Pengiriman :</label>
+                                        <label for="" style="font-size:15px;" class="mt-3 mb-2 text-center">Status Pengiriman :</label>
                                         <div class="col-12 d-flex justify-content-between align-items-center w-100">
 
                                             <?php if ($order['status'] == 'accept') { ?>
-                                                <span class="border text-uppercase fw-bold border-2 border-success rounded text-success  text-center py-1 fs-6 w-100">Accept</span>
+
+                                                <span class="border text-uppercase py-2 fw-bold border-2 border-success rounded text-success text-center w-100">Pesanan Anda Sudah Dalam Perjalanan</span>
+
+
                                             <?php } else if ($order['status'] == 'reject') { ?>
-                                                <span class="border text-uppercase fw-bold border-2 border-danger rounded text-danger text-center px-2 fs-6 w-100">Reject</span>
+                                                <span class="border text-uppercase fw-bold border-2 border-danger rounded text-danger text-center px-2 fs-6 w-100">Pesanan Anda Ditolak Karena Bukti Pembayaran Tidak Valid</span>
                                             <?php } else if ($order['status'] == 'done') { ?>
-                                                <span class="border text-uppercase fw-bold border-2 border-success rounded text-success text-center px-2 fs-6 w-100">Done</span>
+                                                <div class="col-md-6">
+                                                    <span class="border text-uppercase py-2 px-4  fw-bold border-2 border-success rounded text-success text-center w-100">Pesanan Anda Sudah Di Selesai</span>
+                                                </div>
+                                                <div class="col-md-6 me-2 ml-5">
+                                                    <form class="" action="../admin/pesanan/opsi-pesanan.php" method="POST">
+                                                        <input type="hidden" name="id_transaksi" value="<?= $order['id_transaksi']; ?>">
+                                                        <input class="btn btn-success w-100 me-3 ms-1" style="margin-right: 20px;" type="submit" name="diterima" value="Pesanan Telah Di Terima">
+                                                    </form>
+                                                </div>
                                             <?php } else if ($order['status'] == 'pending') { ?>
-                                                <span class="border text-uppercase fw-bold border-2 border-warning rounded text-warning text-center px-2 fs-6 w-100">Pending</span>
+                                                <span class="border text-uppercase fw-bold border-2 border-warning rounded text-warning text-center px-2 fs-6 w-100">Pesanan Anda Sedang Di Proses Oleh Admin</span>
+
+                                            <?php } else if ($order['status'] == 'diterima') { ?>
+                                                <span class="border text-uppercase fw-bold border-2 border-success rounded text-success text-center px-2 fs-6 w-100">Pesanan Anda Sudah Di Terima</span>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -114,18 +122,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Akhir Modal Detail Pemesanan -->
             <?php } ?>
-
-            <!-- <div class="d-flex justify-content-center align-items-center">
-    <h1>Maaf anda belum order product kami, <a href="../products/index.php">SILAHKAN PESAN</a></h1>
-</div> -->
         </div>
-
     </div>
-
     </div>
 
     <?php include '../layout/footer.php'; ?>
 </body>
+
 
 </html>

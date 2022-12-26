@@ -6,20 +6,32 @@
 <body>
     <?php include '../layout/navbar.php'; ?>
     <?php
+    // Awal Query Nampilin Detail Produk Sesuai Id
     $ambil = mysqli_query($koneksi, "SELECT * FROM produk WHERE id_produk='$_GET[id_produk]'");
     $produk = mysqli_fetch_array($ambil);
+
+    $harga = $produk['harga_produk'];
+    $diskon = $produk['diskon_produk'];
+    $hargadiskon = $diskon * $harga / 100;
+    $total = $harga - $hargadiskon;
+    // Akhir Query Nampilin Detail Produk Sesuai Id
     ?>
 
+    <!-- Awal Detail Produk -->
     <div class="container mt-5 mb-5" style="font-family: poppins;">
         <div class="d-flex justify-content-center row">
             <div class="col-md-12">
-
                 <div class="row px-2 py-2 bg-white border rounded-1 shadow">
                     <div class="col-md-4 mt-3 mb-3"><img class="img-fluid img-responsive rounded product-image" src="../foto-produk/<?= $produk['foto_produk'] ?>" width="100%">
                     </div>
                     <div class="col-md-7 ml-3">
                         <h4 class="font-weight-bold mt-3"><?= $produk['nama_produk'] ?></h4>
-                        <h4 class="mr-1">Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></h4>
+                        <?php
+                        if ($diskon == 0) { ?>
+                            <h4 class="mb-2 font-weight-bold">Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></h4>
+                        <?php  } else { ?>
+                            <h4 class="mb-2 font-weight-bold"><s>Rp. <?= number_format($produk['harga_produk'], 0, ".", ".") ?></s>&nbsp;&nbsp;Rp.<?= number_format($total, 0, ".", ".") ?></h4>
+                        <?php  }  ?>
                         <span class="strike-text"></span>
 
                         <p class="text-justify para mb-3"><?= $produk['deskripsi_produk'] ?><br>
@@ -63,9 +75,8 @@
                                     </div>
                                 <?php  } ?>
 
-
                                 <?php
-
+                                // Awal Query Ngirim Data Ke Keranjang
                                 if (isset($_POST['btnkirim'])) {
                                     $id_user = $_SESSION['id_pelanggan'];
                                     $id_produk = $_POST['id_produk'];
@@ -92,25 +103,22 @@
                                         }
                                     }
                                 }
+                                // Akhir Query Ngirim Data Ke Keranjang
                                 ?>
-
-
                             </div>
                         </form>
-
                     </div>
                 </div>
-
-
-
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center"></div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Akhir Detail Produk -->
 
     <?php include '../layout/footer.php'; ?>
+
 </body>
 
 </html>

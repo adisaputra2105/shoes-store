@@ -7,14 +7,14 @@ if (isset($_SESSION['id_pelanggan'])) {
   $id = $_SESSION['id_pelanggan'];
   $produks = mysqli_query($koneksi, "SELECT * FROM produk ");
   
-  // $select_rows = mysqli_query($koneksi, "SELECT * FROM `keranjang`") or die('query failed');
-  // $row_count = mysqli_num_rows($select_rows);
   $tampil = mysqli_query($koneksi, "SELECT * FROM keranjang JOIN pelanggan ON pelanggan.id_pelanggan = keranjang.id_pelanggan WHERE pelanggan.id_pelanggan = $id") ;
   $row_count = mysqli_num_rows($tampil);
-  // var_dump($tampil);
+
+  if (isset($_GET['cari'])) {
+    $cari = $_GET['cari'];
+    $tampil = mysqli_query($koneksi, "SELECT * FROM produk WHERE nama_produk LIKE '% ".$cari." %' ");
+  }
 }
-
-
 ?>
 
 <head>
@@ -49,8 +49,6 @@ if (isset($_SESSION['id_pelanggan'])) {
 
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-  <!-- range slider -->
-
 
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />

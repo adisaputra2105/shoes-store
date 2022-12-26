@@ -6,32 +6,20 @@
 
 <body id="page-top" style="font-family: 'Poppins';">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <?php include '../navbar.php'; ?>
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
                 <?php include '../profile.php'; ?>
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
+                <!-- Table Data Akun Pelanggan -->
                 <div class="container-fluid">
-
-
-                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between">
                             <div class="col-md-7">
                                 <h5 class="mt-2 font-weight-bold text-primary">Table Data Akun Pelanggan</h5>
                             </div>
                             <div class="me-auto" style="margin-left: 100px;"><a button class="btn btn-primary text-white " data-bs-toggle="modal" data-bs-target="#btambah"><i class="bi bi-plus-circle me-2"></i> Tambah Data Pelanggan</a></div>
-
                         </div>
 
                         <div class="card-body">
@@ -41,6 +29,7 @@
                                         <tr class="text-center">
                                             <th scope="col" class="text-center">No</th>
                                             <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Username</th>
                                             <th scope="col">Password</th>
                                             <th scope="col">No.Telepon</th>
@@ -53,6 +42,7 @@
                                             <tr class="text-center">
                                                 <td class="text-center"><?= $no++; ?></td>
                                                 <td><?= $pelanggan['nama_pelanggan'] ?></td>
+                                                <td><?= $pelanggan['email_pelanggan'] ?></td>
                                                 <td><?= $pelanggan['username_pelanggan'] ?></td>
                                                 <td><?= $pelanggan['password_pelanggan'] ?></td>
                                                 <td><?= $pelanggan['tlp_pelanggan'] ?></td>
@@ -61,6 +51,7 @@
                                                     <a button class="btn btn-danger mx-1 text-white" data-bs-toggle="modal" data-bs-target="#bhapus<?= $no ?>"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             </tr>
+                                            <!-- Akhir Tabel Data Akun Pelanggan -->
 
 
 
@@ -79,6 +70,11 @@
                                                                         <input type="hidden" name="id_pelanggan" value="<?= $pelanggan['id_pelanggan']; ?>">
                                                                         <label for="nama_pelanggan" style="font-size:15px;" class="mb-1">Name</label>
                                                                         <input type="input" class="form-control" id="nama_pelanggan" name="nama_pelanggan" value="<?php echo $pelanggan['nama_pelanggan']; ?>" placeholder="Nama Lengkap" aria-label="Nama Lengkap">
+                                                                    </div>
+
+                                                                    <div class="my-3">
+                                                                        <label for="email_pelanggan" style="font-size:15px;" class="mb-1">Email</label>
+                                                                        <input type="email" class="form-control" id="email_pelanggan" name="email_pelanggan" value="<?php echo $pelanggan['email_pelanggan']; ?>" placeholder="Email" aria-label="Nama Lengkap">
                                                                     </div>
 
                                                                     <div class="mb-3">
@@ -121,6 +117,10 @@
                                                                     <div class="mb-3">
                                                                         <label for="nama_pelanggan" style="font-size:15px;" class="mb-1">Name</label>
                                                                         <input type="input" class="form-control" id="nama_pelanggan" name="nama_pelanggan" placeholder="Nama Lengkap" aria-label="First name">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="email_pelanggan" style="font-size:15px;" class="mb-1">Email</label>
+                                                                        <input type="email" class="form-control" id="email_pelanggan" name="email_pelanggan" placeholder="Email" aria-label="First name">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="username_pelanggan" style="font-size:15px;" class="mb-1">Username</label>
@@ -178,19 +178,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
-
     <?php include '../footer.php'; ?>
 
 </body>

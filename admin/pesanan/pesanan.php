@@ -2,31 +2,21 @@
 <html lang="en">
 
 <?php include '../header.php'; ?>
-<?php $pesanans = mysqli_query($koneksi, "SELECT * FROM transaksi JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan");
+<?php $pesanans = mysqli_query($koneksi, "SELECT * FROM transaksi JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan ORDER BY waktu DESC");
 
 ?>
 
 <body id="page-top" style="font-family: 'Poppins';">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <?php include '../navbar.php'; ?>
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
                 <?php include '../profile.php'; ?>
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-
-                    <!-- DataTales Example -->
+                    <!-- Data Tabel Pesanan -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between">
                             <div class="col-md-7">
@@ -75,7 +65,10 @@
                                                     <?php } ?>
                                                     <?php if ($pesanan['status'] == 'done') { ?>
                                                         <span class="border fw-bold border-2 border-success rounded text-success px-2 fs-6">Done</span>
+                                                    <?php } elseif ($pesanan['status'] == 'diterima') { ?>
+                                                        <span class="border fw-bold border-2 border-success rounded text-success px-2 fs-6">Diterima</span>
                                                     <?php } ?>
+
 
 
                                                 </td>
@@ -85,8 +78,6 @@
                                                 </td>
 
                                             </tr>
-
-
 
 
                                             <!-- Modal -->
@@ -133,22 +124,20 @@
                                                                                 <input class="btn btn-sm btn-success w-100" type="submit" name="done" value="Done">
                                                                             </form>
                                                                         <?php } else if ($pesanan['status'] == 'reject') { ?>
-                                                                            <span class="border text-uppercase fw-bold border-2 border-danger rounded text-danger text-center px-2 fs-6 w-100" >Reject</span>
+                                                                            <span class="border text-uppercase fw-bold border-2 border-danger rounded text-danger text-center px-2 fs-6 w-100">Reject</span>
                                                                         <?php } else if ($pesanan['status'] == 'done') { ?>
                                                                             <span class="border text-uppercase fw-bold border-2 border-success rounded text-success text-center px-2 fs-6 w-100" style="margin-left: 10px;">Done</span>
                                                                         <?php } else if ($pesanan['status'] == 'pending') { ?>
                                                                             <form class="" action="opsi-pesanan.php" method="POST">
                                                                                 <input type="hidden" name="id_transaksi" value="<?= $pesanan['id_transaksi']; ?>">
-                                                                            <!-- <div class="d-flex"> -->
-                                                                                    <!-- <div class=""> -->
-                                                                                        <input style="margin-right: 10px;" class="btn btn-success w-100 me-3" type="submit" name="accept" value="Accept">
-                                                                                    <!-- </d/iv> -->
 
-                                                                                    <!-- <div class="col-6 "> -->
-                                                                                        <input class="btn btn-danger w-100 ms-3" style="margin-left: 10px;" type="submit" name="reject" value="Reject">
-                                                                                    <!-- </div> -->
-                                                                                <!-- </div> -->
+                                                                                <input style="margin-right: 10px;" class="btn btn-success w-100 me-3" type="submit" name="accept" value="Accept">
+
+                                                                                <input class="btn btn-danger w-100 ms-3" style="margin-left: 10px;" type="submit" name="reject" value="Reject">
+
                                                                             </form>
+                                                                        <?php } else if ($pesanan['status'] == 'diterima') { ?>
+                                                                            <span class="border text-uppercase fw-bold border-2 border-success rounded text-success text-center px-2 fs-6 w-100" style="margin-left: 10px;">Diterima</span>
                                                                         <?php } ?>
                                                                     </div>
                                                                 </div>
@@ -160,7 +149,7 @@
 
 
 
-                                            <!-- Modal -->
+                                            <!-- Modal Hapus -->
                                             <div class="modal fade" id="bhapus<?= $no ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
@@ -183,6 +172,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- Akhir Modal Hapus -->
 
 
                                             <!-- Modal Gambar -->
@@ -201,7 +191,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <!-- Akhir Modal Gambar -->
                                         <?php }
                                         ?>
@@ -210,18 +199,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
     <?php include '../footer.php'; ?>
 

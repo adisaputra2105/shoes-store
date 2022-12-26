@@ -2,15 +2,14 @@
 <html lang="en">
 <?php include '../layout/header.php'; ?>
 
-
 <body>
+
     <?php include '../layout/navbar.php'; ?>
     <?php
+
     // Jika Pelanggan Sudah Membeli Produk yang sama dan ukuran yang sama 
     $id = $_SESSION['id_pelanggan'];
     $keranjangs = mysqli_query($koneksi, "SELECT * FROM keranjang JOIN produk ON (produk.id_produk = keranjang.id_produk)JOIN pelanggan ON (pelanggan.id_pelanggan = keranjang.id_pelanggan) WHERE keranjang.id_pelanggan = $id");
-    // Akhir
-    // $k = mysqli -
 
     $no = 1;
 
@@ -22,7 +21,6 @@
         echo "<script>window.location='keranjang.php'</script>";
     }
     // Akhir Detele Keranjang
-
 
     // Update Kuantitas
     if (isset($_POST['update_update_btn'])) {
@@ -37,11 +35,7 @@
 
     ?>
 
-
-
         <div class="container-fluid">
-
-
             <!-- Tabel Keranjang -->
             <div class="card shadow mt-5 mb-5">
                 <div class="card-body">
@@ -64,14 +58,19 @@
                                 <?php $no = 1;
                                 $jumlah = 0;
                                 foreach ($keranjangs as $keranjang) {
-                                    $total = $keranjang['harga_produk'] * $keranjang['jumlah_pesanan'];
+                                    $harga = $keranjang['harga_produk'];
+                                    $diskon = $keranjang['diskon_produk'];
+                                    $hargadiskon = $diskon*$harga/100;
+                                    $totalharga = $harga - $hargadiskon;
 
-                                    $jumlah += $keranjang['harga_produk'] * $keranjang['jumlah_pesanan'];
+                                    $total = $totalharga * $keranjang['jumlah_pesanan'];
+
+                                    $jumlah += $totalharga * $keranjang['jumlah_pesanan'];
                                 ?>
                                     <tr class="text-center">
                                         <td class="text-center"><?= $no++; ?></td>
                                         <td><?= $keranjang['nama_produk'] ?></td>
-                                        <td>Rp. <?= number_format($keranjang['harga_produk'], 0, ".", ".") ?></td>
+                                        <td>Rp. <?= number_format($totalharga, 0, ".", ".") ?></td>
                                         <td><?= $keranjang['ukuran'] ?></td>
                                         <td><?= $keranjang['jumlah_pesanan'] ?></td>
                                         <td>
@@ -92,9 +91,6 @@
 
                                 <?php } ?>
                             </tbody>
-
-
-
                             <tfoot>
                                 <tr class="text-center">
                                     <th colspan="2"><a href="../produk/produk.php" class="btn btn-warning text-white">Lanjutkan Belanja</a></th>
@@ -106,14 +102,10 @@
                             </tfoot>
 
                         </table>
-                        <!-- Akhir Table Keranjang -->
-
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- /.container-fluid -->
 
         <?php include '../layout/footer.php'; ?>
         <?php }else { ?>

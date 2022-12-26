@@ -1,8 +1,8 @@
 <!-- Footer -->
 <section class="info_section " style="background-color: #0F3460;">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3">
+      <div class="row px-5">
+        <div class="col-md-4">
           <div class="info_contact">
             <h5>
               <a href="" class="navbar-brand">
@@ -25,7 +25,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="info_info">
             <h5>
               Shoes.Store
@@ -35,52 +35,20 @@
             </p>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="info_links">
-            <h5>
-              Navigasi
-            </h5>
-            <ul>
-              <li>
-                <a href="../index.php">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="../about/about.php">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="../produk/product.html">
-                  Products
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3">
+
+        <div class="col-md-3 ms-3">
           <div class="info_form ">
             <h5>
-              Newsletter
+              Social Media
             </h5>
-            <form action="">
-              <input type="email" placeholder="Enter your email">
-              <button>
-                Subscribe
-              </button>
-            </form>
             <div class="social_box">
-              <a href="">
+              <a href="https://www.facebook.com/profile.php?id=100088386672431">
                 <i class="bi bi-facebook" aria-hidden="true"></i>
               </a>
-              <a href="">
-                <i class="bi bi-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
+              <a href="https://www.instagram.com/shoesstore4458/">
                 <i class="bi bi-instagram" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.youtube.com/channel/UCCrDLupHd52tQrbRQQEEUfA">
                 <i class="bi bi-youtube" aria-hidden="true"></i>
               </a>
             </div>
@@ -89,14 +57,10 @@
       </div>
     </div>
   </section>
-
-
-
   <footer class="footer_section" style="background-color: #0F3460;">
     <div class="container">
       <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By Smk BM3
-
+        &copy; <span id="displayYear"></span> All Rights Reserved By Adi & Oni RPL
       </p>
     </div>
   </footer>
